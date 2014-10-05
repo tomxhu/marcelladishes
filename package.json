@@ -9,7 +9,8 @@
   "dependencies": {
     "express": "~4.9.x",
     "twilio": "*",
-    "node-schedule": "*"
+    "node-schedule": "*",
+    "newrelic": "*"
   },
   "engines": {
     "node": "0.10.x"
