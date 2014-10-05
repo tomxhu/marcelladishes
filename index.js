@@ -1,4 +1,4 @@
-require('newrelic');
+var newrelic = require('newrelic');
 var express = require('express')
 var app = express();
 var schedule = require('node-schedule');
