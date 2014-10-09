@@ -50,6 +50,7 @@ function createMessage(dishes, trash) {
 }
 
 var body;
+var EMPTYDISTANCE = 60;
 
 app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
@@ -60,7 +61,7 @@ app.get('/', function(request, response) {
 });
 
 app.post('/sinkData', function (request, response) {
-	console.log(request.query);
+	console.log(request.query.data);
 	response.send()
 });
 
