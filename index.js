@@ -66,6 +66,7 @@ app.get('/', function(request, response) {
 
 app.post('/sinkData', function (request, response) {
 	if (request.query.data < EMPTYDISTANCE) {
+		console.log('<EMPTYDISTANCE');
 		time += 1
 		if (time > 360){
 			message = "Hey, there have been dishes in the sink for 6 hours";
@@ -73,10 +74,12 @@ app.post('/sinkData', function (request, response) {
 		}
 	}
 	if (request.query.data < HALFWAYDISTANCE) {
+		console.log('<HALFWAYDISTANCE');
 		message = "Hey, there's a lot of dishes in the sink";
 		sendText(number[index], message);
 	}
-	console.log(request.query.data);
+	console.log(time);
+	// console.log(request.query.data);
 	response.send()
 });
 
