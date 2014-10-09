@@ -5,11 +5,11 @@ var schedule = require('node-schedule');
 var index = process.argv[2] || 0;
 
 var numbers = [
-	'4105751082', // Dan
 	'7819568182', // Tommy
 	'9492926781', // Mike
 	'8573139589', // Anu
 	'8572075659', // Vy
+	'4105751082' // Dan
 ]
 var people = ['Tommy', 'Mike', 'Anu', 'Vy', 'Dan'];
 
@@ -51,6 +51,10 @@ function createMessage(dishes, trash) {
 
 var body;
 var EMPTYDISTANCE = 60;
+var HALFWAYDISTANCE = 50
+var currentHeight;
+var time = 0;
+
 
 app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
@@ -61,6 +65,17 @@ app.get('/', function(request, response) {
 });
 
 app.post('/sinkData', function (request, response) {
+	if (request.query.data < EMPTYDISTANCE) {
+		time += 1
+		if (time > 360){
+			message = "Hey, there have been dishes in the sink for 6 hours";
+			sendText(number[index], message);
+		}
+	}
+	if (request.query.data < HALFWAYDISTANCE) {
+		message = "Hey, there's a lot of dishes in the sink";
+		sendText(number[index], message);
+	}
 	console.log(request.query.data);
 	response.send()
 });
