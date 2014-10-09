@@ -1,6 +1,8 @@
-var express = require('express')
+	var express = require('express')
 var app = express();
 var schedule = require('node-schedule');
+
+var index = process.argv[2] || 0;
 
 var numbers = [
 	'4105751082', // Dan
@@ -9,7 +11,6 @@ var numbers = [
 	'8573139589', // Anu
 	'8572075659', // Vy
 ]
-var index = process.argv[2] || 0;
 var people = ['Tommy', 'Mike', 'Anu', 'Vy', 'Dan'];
 
 
@@ -56,7 +57,12 @@ app.use(express.static(__dirname + '/public'))
 app.get('/', function(request, response) {
   body = createMessage(people[index], people[(index + 1) % 5]);
   response.send(body);
-})
+});
+
+app.post('/sinkData', function (request, response) {
+	console.log(request.params);
+	response.send()
+});
 
 app.listen(app.get('port'), function() {
 	var text = schedule.scheduleJob(rule, function(){
