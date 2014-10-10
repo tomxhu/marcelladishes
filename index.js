@@ -51,10 +51,11 @@ function createMessage(dishes, trash) {
 
 var body;
 var EMPTYDISTANCE = 65;
-var HALFWAYDISTANCE = 50
+var HALFWAYDISTANCE = 45
 var currentHeight;
 var time = 0;
 var emptyBuffer = 0;
+var messageTimeBuffer = 0;
 
 
 app.set('port', (process.env.PORT || 5000))
@@ -69,20 +70,27 @@ app.post('/sinkData', function (request, response) {
 	if (request.query.data < EMPTYDISTANCE) {
 		console.log('<EMPTYDISTANCE');
 		time += 1
-		if (time > 360){
-			message = "Hey, there have been dishes in the sink for 6 hours";
-			sendText(number[index], message);
+		if (time > 5){
+			if ((messageTimeBuffer % 1) === 0){
+				message = "Hey, there have been dishes in the sink for 6 hours";
+				sendText(number[index], message);
+				messageTimeBuffer += 1;
+			}
 			emptyBuffer = 0;
 		}
 	}
 	if (request.query.data < HALFWAYDISTANCE) {
 		console.log('<HALFWAYDISTANCE');
-		message = "Hey, there's a lot of dishes in the sink";
-		sendText(number[index], message);
+		if ((messageTimeBuffer % 120) === 0){
+			message = "Hey, there's a lot of dishes in the sink";
+			sendText(number[index], message);
+			messageTimeBuffer += 1;
+		}
 		emptyBuffer = 0;
 	}
 	if (request.query.data >= EMPTYDISTANCE) {
 		emptyBuffer += 1;
+		messageTimeBuffer = 0;
 		if (emptyBuffer > 15) {
 			time = 0;
 		}
