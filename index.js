@@ -70,10 +70,10 @@ app.post('/sinkData', function (request, response) {
 	if (request.query.data < EMPTYDISTANCE) {
 		console.log('<EMPTYDISTANCE');
 		time += 1
-		if (time > 5){
-			if ((messageTimeBuffer % 1) === 0){
+		if (time > 3){
+			if ((messageTimeBuffer % 2) === 0){
 				message = "Hey, there have been dishes in the sink for 6 hours";
-				sendText(number[index], message);
+				sendText(numbers[index], message);
 				messageTimeBuffer += 1;
 			}
 			emptyBuffer = 0;
@@ -83,7 +83,7 @@ app.post('/sinkData', function (request, response) {
 		console.log('<HALFWAYDISTANCE');
 		if ((messageTimeBuffer % 120) === 0){
 			message = "Hey, there's a lot of dishes in the sink";
-			sendText(number[index], message);
+			sendText(numbers[index], message);
 			messageTimeBuffer += 1;
 		}
 		emptyBuffer = 0;
