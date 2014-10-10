@@ -45,7 +45,7 @@ function sendText(number, body) {
 			}
 			console.log(message.sid); 
 		});	
-	}
+	} 	
 };
 
 function createMessage(dishes, trash) {
@@ -54,7 +54,7 @@ function createMessage(dishes, trash) {
 }
 
 var body;
-var EMPTYDISTANCE = 65;
+var EMPTYDISTANCE = 59;
 var HALFWAYDISTANCE = 45
 var currentHeight;
 var time = 0;
