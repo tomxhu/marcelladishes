@@ -32,16 +32,20 @@ var testRule = new schedule.RecurrenceRule();
 rule.second = 0;
 
 function sendText(number, body) {
-	client.messages.create({ 
+	var now = new Date();
+	var hour =  now.getHours();
+	if (hour > 8) {
+		client.messages.create({ 
 		to: number, 
 		from: "+15082326612", 
 		body: body,   
-	}, function(err, message) { 
-		if (err) {
-			console.log(err);
-		}
-		console.log(message.sid); 
-	});
+		}, function(err, message) { 
+			if (err) {
+				console.log(err);
+			}
+			console.log(message.sid); 
+		});	
+	}
 };
 
 function createMessage(dishes, trash) {
@@ -70,8 +74,8 @@ app.post('/sinkData', function (request, response) {
 	if (request.query.data < EMPTYDISTANCE) {
 		console.log('<EMPTYDISTANCE');
 		time += 1
-		if (time > 3){
-			if ((messageTimeBuffer % 2) === 0){
+		if (time > 360){
+			if ((messageTimeBuffer % 120) === 0){
 				message = "Hey, there have been dishes in the sink for 6 hours";
 				sendText(numbers[index], message);
 				messageTimeBuffer += 1;
