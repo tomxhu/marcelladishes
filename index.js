@@ -74,7 +74,7 @@ app.post('/sinkData', function (request, response) {
 	if (request.query.data < EMPTYDISTANCE) {
 		console.log('<EMPTYDISTANCE');
 		time += 1
-		if (time > 1){
+		if (time > 360){
 			if ((messageTimeBuffer % 120) === 0){
 				message = "Hey, there have been dishes in the sink for 6 hours";
 				sendText(numbers[index], message);
