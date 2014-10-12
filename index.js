@@ -5,13 +5,13 @@ var schedule = require('node-schedule');
 var index = process.argv[2] || 0;
 
 var numbers = [
-	'7819568182' // Tommy
 	'9492926781', // Mike
 	'8573139589', // Anu
 	'8572075659', // Vy
-	'4105751082' // Dan	
+	'4105751082', // Dan
+	'7819568182' // Tommy
 ]
-var people = ['Tommy', 'Mike', 'Anu', 'Vy', 'Dan'];
+var people = ['Mike', 'Anu', 'Vy', 'Dan', 'Tommy'];
 
 
 // Twilio Credentials 
@@ -114,10 +114,10 @@ app.post('/sinkData', function (request, response) {
 });
 
 app.listen(app.get('port'), function() {
-	index += 1;
-	index = index % 5;
 
 	var text = schedule.scheduleJob(rule, function(){
+		index += 1;
+		index = index % 5;
 		body = createMessage(people[index], people[(index + 2) % 5]);
 		
 		numbers.forEach(function (number){
