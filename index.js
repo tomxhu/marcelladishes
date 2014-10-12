@@ -117,7 +117,7 @@ app.listen(app.get('port'), function() {
 	index += 1;
 	index = index % 5;
 
-	var text = schedule.scheduleJob(testRule, function(){
+	var text = schedule.scheduleJob(rule, function(){
 		body = createMessage(people[index], people[(index + 2) % 5]);
 		
 		numbers.forEach(function (number){
