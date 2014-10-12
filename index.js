@@ -129,12 +129,6 @@ app.listen(app.get('port'), function() {
 		
 		
 	});
-	body = createMessage(people[index], people[(index + 2) % 5]);
-		
-		numbers.forEach(function (number){
-			sendText(number, body);
-			sleep(1000 * 60 * 2);
-		});
   console.log("Node app is running at localhost:" + app.get('port'))
 })
 
