@@ -85,6 +85,7 @@ app.get('/sendText', function(request, response) {
 			sendText(number, body);
 			sleep(1000 * 60 * 5);
 		});
+	response.send('sending texts');
 
 })
 
