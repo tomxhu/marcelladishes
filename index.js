@@ -79,6 +79,15 @@ app.get('/', function(request, response) {
   response.send(body);
 });
 
+app.get('/sendText', function(request, response) {
+	body = createMessage(people[index], people[(index + 2) % 5]);
+	numbers.forEach(function (number){
+			sendText(number, body);
+			sleep(1000 * 60 * 5);
+		});
+
+})
+
 app.post('/sinkData', function (request, response) {
 	console.log('this is the req data', request.query);
 	if (request.query.sensor1 < EMPTYDISTANCE || request.query.sensor2 < EMPTYDISTANCE) {
