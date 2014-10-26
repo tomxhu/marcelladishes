@@ -83,7 +83,6 @@ app.get('/sendText', function(request, response) {
 	body = createMessage(people[index], people[(index + 2) % 5]);
 	numbers.forEach(function (number){
 			sendText(number, body);
-			sleep(1000 * 60 * 5);
 		});
 	response.send('sending texts');
 
@@ -133,7 +132,6 @@ app.listen(app.get('port'), function() {
 		
 		numbers.forEach(function (number){
 			sendText(number, body);
-			sleep(1000 * 60 * 5);
 		});
 
 		// sendText(numbers[1], body);
