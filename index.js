@@ -80,6 +80,7 @@ app.get('/', function(request, response) {
 });
 
 app.post('/sinkData', function (request, response) {
+	console.log('this is the req data', request.query);
 	if (request.query.data < EMPTYDISTANCE) {
 		console.log('<EMPTYDISTANCE');
 		time += 1
