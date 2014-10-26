@@ -6,12 +6,12 @@ var index = process.argv[2] || 0;
 
 var numbers = [
 	'9492926781', // Mike
-	'8573139589', // Anu
-	'8572075659', // Vy
+	'7819568182', // Tommy
 	'4105751082', // Dan
-	'7819568182' // Tommy
+	'8572075659', // Vy
+	'8573139589'  // Anu
 ]
-var people = ['Mike', 'Anu', 'Vy', 'Dan', 'Tommy'];
+var people = ['Mike', 'Tommy', 'Dan', 'Vy', 'Anu',];
 
 
 // Twilio Credentials 
@@ -81,7 +81,7 @@ app.get('/', function(request, response) {
 
 app.post('/sinkData', function (request, response) {
 	console.log('this is the req data', request.query);
-	if (request.query.data < EMPTYDISTANCE) {
+	if (request.query.sensor1 < EMPTYDISTANCE || request.query.sensor2 < EMPTYDISTANCE) {
 		console.log('<EMPTYDISTANCE');
 		time += 1
 		if (time > 360){
@@ -93,7 +93,7 @@ app.post('/sinkData', function (request, response) {
 			emptyBuffer = 0;
 		}
 	}
-	if (request.query.data < HALFWAYDISTANCE) {
+	if (request.query.sensor1 < HALFWAYDISTANCE && request.query.sensor2 < HALFWAYDISTANCE) {
 		console.log('<HALFWAYDISTANCE');
 		if ((messageTimeBuffer % 120) === 0){
 			message = "Hey, there's a lot of dishes in the sink";
@@ -102,7 +102,7 @@ app.post('/sinkData', function (request, response) {
 		}
 		emptyBuffer = 0;
 	}
-	if (request.query.data >= EMPTYDISTANCE) {
+	if (request.query.sensor1 >= EMPTYDISTANCE && request.query.sensor2 >= EMPTYDISTANCE) {
 		emptyBuffer += 1;
 		messageTimeBuffer = 0;
 		if (emptyBuffer > 15) {
@@ -123,7 +123,7 @@ app.listen(app.get('port'), function() {
 		
 		numbers.forEach(function (number){
 			sendText(number, body);
-			sleep(1000 * 60 * 2);
+			sleep(1000 * 60 * 5);
 		});
 
 		// sendText(numbers[1], body);
