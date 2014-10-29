@@ -81,11 +81,12 @@ app.get('/', function(request, response) {
 
 app.get('/sendText', function(request, response) {
 	body = createMessage(people[index], people[(index + 2) % 5]);
+	response.send('sending texts');
 	numbers.forEach(function (number){
 			sendText(number, body);
 			sleep(1000*60*2);
 		});
-	response.send('sending texts');
+	
 
 })
 
