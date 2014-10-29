@@ -52,7 +52,7 @@ function sendText(number, body) {
 			if (err) {
 				console.log(err);
 			}
-			console.log(message.sid); 
+			console.log('This is the messageID', message.sid); 
 		});	
 	} 	
 };
@@ -83,6 +83,7 @@ app.get('/sendText', function(request, response) {
 	body = createMessage(people[index], people[(index + 2) % 5]);
 	numbers.forEach(function (number){
 			sendText(number, body);
+			sleep(1000*60*2);
 		});
 	response.send('sending texts');
 
@@ -132,6 +133,7 @@ app.listen(app.get('port'), function() {
 		
 		numbers.forEach(function (number){
 			sendText(number, body);
+			sleep(1000*60*2);
 		});
 
 		// sendText(numbers[1], body);
