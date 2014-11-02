@@ -5,13 +5,13 @@ var schedule = require('node-schedule');
 var index = process.argv[2] || 0;
 
 var numbers = [
-	'9492926781', // Mike
 	'7819568182', // Tommy
 	'4105751082', // Dan
 	'8572075659', // Vy
-	'8573139589'  // Anu
+	'8573139589',  // Anu
+	'9492926781' // Mike
 ]
-var people = ['Mike', 'Tommy', 'Dan', 'Vy', 'Anu',];
+var people = ['Tommy', 'Dan', 'Vy', 'Anu', 'Mike'];
 
 
 // Twilio Credentials 
@@ -52,7 +52,7 @@ function sendText(number, body) {
 			if (err) {
 				console.log(err);
 			}
-			console.log('This is the messageID', message.sid); 
+			console.log('This is the messageID', message); 
 		});	
 	} 	
 };
