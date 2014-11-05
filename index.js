@@ -63,7 +63,7 @@ function createMessage(dishes, trash) {
 }
 
 var body;
-var EMPTYDISTANCE = 59;
+var EMPTYDISTANCE = 55;
 var HALFWAYDISTANCE = 45
 var currentHeight;
 var time = 0;
