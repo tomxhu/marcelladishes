@@ -14,7 +14,7 @@ app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
 
 app.get('/', function(request, response) {
-  body = createMessage(utils.people[index], utils.people[(index + 2) % 5]);
+  body = utils.createMessage(utils.people[index], utils.people[(index + 2) % 5]);
   response.send(body);
 });
 
@@ -46,7 +46,7 @@ app.listen(app.get('port'), function() {
 		
 		
 	});
-  console.log("Node app is running at localhost:" + app.get('port'))
+  console.log("Node app is running at localhost:" + app.get('port'));
 })
 
 

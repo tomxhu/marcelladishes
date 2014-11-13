@@ -24,7 +24,7 @@ module.exports = {
         }
     },
 
-    createMessages: function (dishes, trash) {
+    createMessage: function (dishes, trash) {
         return "It is " + dishes + "'s week on dishes and " +
             trash + "'s week on trash."
     }
