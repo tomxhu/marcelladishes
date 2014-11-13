@@ -3,7 +3,7 @@ var app = express();
 var schedule = require('node-schedule');
 
 var utils = require('./utils/utils');
-var twilioService = require('./twilioService');
+var twilioService = require('./services/twilioService');
 var sinkData = require('./routes/sinkData');
 
 var index = process.argv[2] || 0;
