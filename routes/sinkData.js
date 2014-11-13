@@ -1,3 +1,21 @@
+var storage = require('node-persist');
+storage.initSync();
+
+var EMPTYDISTANCE = 55;
+var HALFWAYDISTANCE = 45
+var initValues = ['currentHeight', 'time', 'emptyBuffer', 'messageTimeBuffer']
+
+initValues.forEach(function(values){
+    if(!storage.getItem(values)){
+        storage.setItem(values,0);
+    }
+});
+
+var currentHeight = storage.getItem('currentHeight');
+var time = storage.getItem('time');
+var emptyBuffer = storage.getItem('emptyBuffer');
+var messageTimeBuffer = storage.getItem('messageTimeBuffer');
+
 module.exports = {
     sinkDataPost: function (request, response) {
         console.log('this is the req data', request.query);
@@ -31,6 +49,10 @@ module.exports = {
         }
         console.log(time);
         // console.log(request.query.data);
+        storage.setItem('currentHeight', currentHeight);
+        storage.setItem('time', time);
+        storage.setItem('emptyBuffer', emptyBuffer);
+        storage.setItem('messageTimeBuffer', messageTimeBuffer);
         response.send()
     }
 }

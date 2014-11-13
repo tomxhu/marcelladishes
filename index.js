@@ -58,12 +58,8 @@ function createMessage(dishes, trash) {
 }
 
 var body;
-var EMPTYDISTANCE = 55;
-var HALFWAYDISTANCE = 45
-var currentHeight;
-var time = 0;
-var emptyBuffer = 0;
-var messageTimeBuffer = 0;
+
+
 
 
 app.set('port', (process.env.PORT || 5000))
