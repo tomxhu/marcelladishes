@@ -8,6 +8,15 @@ var sinkData = require('./routes/sinkData');
 
 var index = process.argv[2] || 0;
 
+var storage = require('node-persist');
+storage.initSync();
+
+if(!storage.getItem('index')){
+	storage.setItem('index',0);
+}
+
+var index = storage.getItem('index');
+
 var body;
 
 app.set('port', (process.env.PORT || 5000))
@@ -33,8 +42,11 @@ app.post('/sinkData', sinkData.sinkDataPost);
 app.listen(app.get('port'), function() {
 
 	var text = schedule.scheduleJob(utils.rule, function(){
+
 		index += 1;
 		index = index % 5;
+		storage.setItem('index',index);
+
 		body = utils.createMessage(utils.people[index], utils.people[(index + 2) % 5]);
 
 		utils.numbers.forEach(function (number){
