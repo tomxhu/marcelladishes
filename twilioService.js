@@ -8,8 +8,7 @@ var authToken = 'abd184322d8698d41ec413d11b72e6b6';
 // require the Twilio module and create a REST client
 var client = twilio(accountSid, authToken);
 
-module.exports = function() {
-    return {
+module.exports = {
         sendText: function(number, body) {
             var now = new Date();
             var hour =  now.getHours();
@@ -26,5 +25,4 @@ module.exports = function() {
                 });
             }
         }
-    };
 }
