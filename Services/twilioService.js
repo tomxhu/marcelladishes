@@ -1,6 +1,7 @@
 var schedule = require('node-schedule');
 var twilio = require('twilio');
 
+
 // Twilio Credentials
 var accountSid = 'ACb673b6a7f9f908fa56af3d1a1cec6ca4';
 var authToken = 'abd184322d8698d41ec413d11b72e6b6';
