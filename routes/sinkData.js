@@ -1,4 +1,4 @@
-var twilioService = require('./services/twilioService');
+var twilioService = require('../services/twilioService');
 var storage = require('node-persist');
 storage.initSync();
 
