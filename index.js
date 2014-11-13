@@ -56,7 +56,6 @@ app.listen(app.get('port'), function() {
 
 		// twilioService.sendText(utils.numbers[1], body);
 		
-		
 	});
   console.log("Node app is running at localhost:" + app.get('port'));
 })
