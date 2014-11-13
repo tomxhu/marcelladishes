@@ -1,6 +1,7 @@
-	var express = require('express')
+var express = require('express')
 var app = express();
 var schedule = require('node-schedule');
+var twilioService = require('./twilioService');
 
 var index = process.argv[2] || 0;
 
@@ -12,14 +13,6 @@ var numbers = [
 	'7819568182' // Tommy
 ]
 var people = ['Dan', 'Vy', 'Anu', 'Mike', 'Tommy'];
-
-
-// Twilio Credentials 
-var accountSid = 'ACb673b6a7f9f908fa56af3d1a1cec6ca4'; 
-var authToken = 'abd184322d8698d41ec413d11b72e6b6'; 
- 
-// require the Twilio module and create a REST client 
-var client = require('twilio')(accountSid, authToken); 
 
 // sets up rule
 var rule = {
@@ -39,23 +32,23 @@ function sleep(milliseconds) {
     }
   }
 }
-
-function sendText(number, body) {
-	var now = new Date();
-	var hour =  now.getHours();
-	if (hour > 8) {
-		client.messages.create({ 
-		to: number, 
-		from: "+15082326612", 
-		body: body,   
-		}, function(err, message) { 
-			if (err) {
-				console.log(err);
-			}
-			console.log('This is the messageID', message); 
-		});	
-	} 	
-};
+//
+//function sendText(number, body) {
+//	var now = new Date();
+//	var hour =  now.getHours();
+//	if (hour > 8) {
+//		client.messages.create({
+//		to: number,
+//		from: "+15082326612",
+//		body: body,
+//		}, function(err, message) {
+//			if (err) {
+//				console.log(err);
+//			}
+//			console.log('This is the messageID', message);
+//		});
+//	}
+//};
 
 function createMessage(dishes, trash) {
 	return "It is " + dishes + "'s week on dishes and " +
@@ -82,11 +75,11 @@ app.get('/', function(request, response) {
 app.get('/sendText', function(request, response) {
 	body = createMessage(people[index], people[(index + 2) % 5]);
 	response.send('sending texts');
-	// sendText(numbers[2], body);
-	numbers.forEach(function (number){
-			sendText(number, body);
-			sleep(1000*60*2);
-		});
+	twilioService.sendText(numbers[4], body);
+	//numbers.forEach(function (number){
+	//	twilioService.sendText(number, body);
+	//		sleep(1000*60*2);
+	//	});
 });
 
 app.post('/sinkData', function (request, response) {
@@ -97,7 +90,7 @@ app.post('/sinkData', function (request, response) {
 		if (time > 360){
 			if ((messageTimeBuffer % 120) === 0){
 				message = "Hey, there have been dishes in the sink for 6 hours";
-				sendText(numbers[index], message);
+				twilioService.sendText(numbers[index], message);
 				messageTimeBuffer += 1;
 			}
 			emptyBuffer = 0;
@@ -107,7 +100,7 @@ app.post('/sinkData', function (request, response) {
 		console.log('<HALFWAYDISTANCE');
 		if ((messageTimeBuffer % 120) === 0){
 			message = "Hey, there's a lot of dishes in the sink";
-			sendText(numbers[index], message);
+			twilioService.sendText(numbers[index], message);
 			messageTimeBuffer += 1;
 		}
 		emptyBuffer = 0;
@@ -132,11 +125,11 @@ app.listen(app.get('port'), function() {
 		body = createMessage(people[index], people[(index + 2) % 5]);
 		
 		numbers.forEach(function (number){
-			sendText(number, body);
+			twilioService.sendText(number, body);
 			sleep(1000*60*2);
 		});
 
-		// sendText(numbers[1], body);
+		// twilioService.sendText(numbers[1], body);
 		
 		
 	});
