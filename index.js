@@ -12,10 +12,10 @@ var storage = require('node-persist');
 storage.initSync();
 
 if(!storage.getItem('index')){
-	storage.setItem('index',0);
+	storage.setItem('index', index);
 }
 
-var index = storage.getItem('index');
+index = storage.getItem('index');
 
 var body;
 
