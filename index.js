@@ -3,13 +3,12 @@ var app = express();
 var schedule = require('node-schedule');
 
 var utils = require('./utils/utils');
-var twilioService = require('./services/twilioService');
+var twilioService = require('./twilioService');
 var sinkData = require('./routes/sinkData');
 
 var index = process.argv[2] || 0;
 
 var body;
-
 
 app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
