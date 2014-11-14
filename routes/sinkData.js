@@ -1,21 +1,32 @@
+var mongoose = require('mongoose');
+
 var twilioService = require('../services/twilioService');
-var storage = require('node-persist');
-storage.initSync();
+var utils = require('./utils/utils');
 
 var EMPTYDISTANCE = 55;
 var HALFWAYDISTANCE = 45
-var initValues = ['currentHeight', 'time', 'emptyBuffer', 'messageTimeBuffer']
 
-initValues.forEach(function(values){
-    if(!storage.getItem(values)){
-        storage.setItem(values,0);
+var SinkData = mongoose.model('SinkData', utils.sinkDataSchema);
+
+Kitten.find(function (err, kittens) {
+    if (err) {
+        var sinkData = new SinkData({
+            currentHeight: Number,
+            time: Number,
+            emptyBuffer: Number,
+            messageTimeBuffer: Number
+        });
+        sinkData.save(function (err){
+            if (err) {return console.error(err);}
+        })
     }
-});
+    console.log(kittens)
+})
 
-var currentHeight = storage.getItem('currentHeight');
-var time = storage.getItem('time');
-var emptyBuffer = storage.getItem('emptyBuffer');
-var messageTimeBuffer = storage.getItem('messageTimeBuffer');
+var currentHeight = 0;
+var time = 0;
+var emptyBuffer = 0;
+var messageTimeBuffer = 0;
 
 module.exports = {
     sinkDataPost: function (request, response) {
@@ -50,10 +61,7 @@ module.exports = {
         }
         console.log(time);
         // console.log(request.query.data);
-        storage.setItem('currentHeight', currentHeight);
-        storage.setItem('time', time);
-        storage.setItem('emptyBuffer', emptyBuffer);
-        storage.setItem('messageTimeBuffer', messageTimeBuffer);
+
         response.send()
     }
 }

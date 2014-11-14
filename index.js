@@ -1,22 +1,22 @@
 var express = require('express');
 var app = express();
 var schedule = require('node-schedule');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+	console.log('db opened');
+});
+
+
 
 var utils = require('./utils/utils');
 var twilioService = require('./services/twilioService');
 var sinkData = require('./routes/sinkData');
 
-var index = process.argv[2] || 0;
-
-var storage = require('node-persist');
-storage.initSync();
-
-if(!storage.getItem('index')){
-	storage.setItem('index', index);
-}
-
-index = storage.getItem('index');
-
+var index = 0;
 var body;
 
 app.set('port', (process.env.PORT || 5000))
@@ -45,7 +45,6 @@ app.listen(app.get('port'), function() {
 
 		index += 1;
 		index = index % 5;
-		storage.setItem('index',index);
 
 		body = utils.createMessage(utils.people[index], utils.people[(index + 2) % 5]);
 

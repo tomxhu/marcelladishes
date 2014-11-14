@@ -27,6 +27,16 @@ module.exports = {
     createMessage: function (dishes, trash) {
         return "It is " + dishes + "'s week on dishes and " +
             trash + "'s week on trash."
-    }
+    },
+    sinkDataSchema: mongoose.Schema({
+        currentHeight: Number,
+        time: Number,
+        emptyBuffer: Number,
+        messageTimeBuffer: Number
+    }),
+    indexSchema: mongoose.Schema({
+        index: Number
+    })
+
 
 }

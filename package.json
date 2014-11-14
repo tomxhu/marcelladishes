@@ -8,9 +8,9 @@
   },
   "dependencies": {
     "express": "~4.9.x",
-    "twilio": "*",
+    "mongoose": "^3.8.19",
     "node-schedule": "*",
-    "node-persist": "*"
+    "twilio": "*"
   },
   "engines": {
     "node": "0.10.x"
