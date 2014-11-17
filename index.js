@@ -20,7 +20,9 @@ var index = 0;
 var body;
 
 app.set('port', (process.env.PORT || 5000))
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/public'));
+
+sinkData.initializeLocalVars();
 
 app.get('/', function(request, response) {
   body = utils.createMessage(utils.people[index], utils.people[(index + 2) % 5]);

@@ -1,3 +1,4 @@
+var mongoose = require('mongoose');
 module.exports = {
 
     numbers: [
@@ -29,6 +30,7 @@ module.exports = {
             trash + "'s week on trash."
     },
     sinkDataSchema: mongoose.Schema({
+        id: Number,
         currentHeight: Number,
         time: Number,
         emptyBuffer: Number,
