@@ -41,7 +41,6 @@ sinkData.initializeLocalVars(ClearTimeData);
 app.get('/', function(request, response) {
 	body = utils.createMessage(utils.people[index], utils.people[(index + 2) % 5]);
 	ClearTimeData.find({}, function(err, dbClearTimeData){
-		console.log(dbClearTimeData[0].__id);
 		var text = _.omit(dbClearTimeData[0], ['__v', '_id']).toString();
 		response.send(body + text);
 	})
