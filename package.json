@@ -10,7 +10,9 @@
     "express": "~4.9.x",
     "mongoose": "^3.8.19",
     "node-schedule": "*",
-    "twilio": "*"
+    "q": "^1.1.1",
+    "twilio": "*",
+    "underscore": "^1.7.0"
   },
   "engines": {
     "node": "0.10.x"

@@ -8,6 +8,7 @@ var HALFWAYDISTANCE = 45
 
 var SinkData = mongoose.model('SinkData', utils.sinkDataSchema);
 
+
 var currentHeightSensor1 = 0;
 var currentHeightSensor2 = 0;
 var time = 0;
@@ -16,12 +17,14 @@ var messageTimeBuffer = 0;
 
 
 module.exports = {
-    initializeLocalVars: function(){
-        SinkData.find({id: 0}, function (err, sinkData) {
+    initializeLocalVars: function(ClearTimeData){
+
+        utils.initClearTime(ClearTimeData);
+
+        SinkData.find({}, function (err, sinkData) {
             if (sinkData.length === 0) {
                 console.log('init data');
                 var sinkData = new SinkData({
-                    id: 0,
                     currentHeightSensor1: 0,
                     currentHeightSensor2: 0,
                     time: 0,
@@ -41,7 +44,7 @@ module.exports = {
             }
         });
     },
-    sinkDataPost: function (request, response) {
+    sinkDataPost: function (request, response, ClearTimeData, person) {
         console.log('this is the req data', request.query);
 
         currentHeightSensor1 = request.query.sensor1;
@@ -69,14 +72,25 @@ module.exports = {
             emptyBuffer = 0;
         }
         if (currentHeightSensor1 >= EMPTYDISTANCE && currentHeightSensor2 >= EMPTYDISTANCE) {
-            emptyBuffer += 1;
-            messageTimeBuffer = 0;
-            if (emptyBuffer > 15) {
-                time = 0;
+            if (time !== 0){
+                emptyBuffer += 1;
+                messageTimeBuffer = 0;
+                if (emptyBuffer > 5) {
+
+                    var updateKey = {};
+                    console.log(person);
+                    updateKey[person] = time;
+                    console.log(updateKey);
+                    ClearTimeData.update({}, updateKey, function(err){
+                        if (err) {console.log(err)}
+                    });
+
+                    time = 0;
+                }
             }
         }
 
-        SinkData.update({id: 0}, {
+        SinkData.update({}, {
             currentHeightSensor1: currentHeightSensor1,
             currentHeightSensor2: currentHeightSensor2,
             time  : time,
