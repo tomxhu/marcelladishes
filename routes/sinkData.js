@@ -56,7 +56,7 @@ module.exports = {
             if (time > 360){
                 if ((messageTimeBuffer % 120) === 0){
                     message = "Hey, there have been dishes in the sink for 6 hours";
-                    twilioService.sendText(numbers[index], message);
+                    twilioService.sendText(utils.numbers[index], message);
                     messageTimeBuffer += 1;
                 }
                 emptyBuffer = 0;
@@ -66,7 +66,7 @@ module.exports = {
             console.log('<HALFWAYDISTANCE');
             if ((messageTimeBuffer % 120) === 0){
                 message = "Hey, there's a lot of dishes in the sink";
-                twilioService.sendText(numbers[index], message);
+                twilioService.sendText(utils.numbers[index], message);
                 messageTimeBuffer += 1;
             }
             emptyBuffer = 0;
