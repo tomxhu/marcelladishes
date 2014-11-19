@@ -44,7 +44,7 @@ module.exports = {
             }
         });
     },
-    sinkDataPost: function (request, response, ClearTimeData, person) {
+    sinkDataPost: function (request, response, ClearTimeData, person, index) {
         console.log('this is the req data', request.query);
 
         currentHeightSensor1 = request.query.sensor1;

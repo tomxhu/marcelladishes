@@ -62,7 +62,7 @@ app.get('/sendText', function(request, response) {
 app.post('/sinkData', function(request, response){
 	console.log('while posting: ', index);
 	console.log(utils.people[index]);
-	sinkData.sinkDataPost(request, response, ClearTimeData, utils.people[index]);
+	sinkData.sinkDataPost(request, response, ClearTimeData, utils.people[index], index);
 });
 
 app.listen(app.get('port'), function() {
