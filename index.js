@@ -39,7 +39,7 @@ app.use(express.static(__dirname + '/public'));
 sinkData.initializeLocalVars(ClearTimeData);
 
 app.get('/', function(request, response) {
-	body = utils.createMessage(utils.people[index], utils.people[(index + 2) % 5]);
+	body = utils.createMessage(utils.people[index], utils.people[(index + 2) % 4]);
 	ClearTimeData.find({}, function(err, dbClearTimeData){
 		var text = _.omit(dbClearTimeData[0], ['__v', '_id']).toString();
 		response.send(body + text);
@@ -48,7 +48,7 @@ app.get('/', function(request, response) {
 });
 
 app.get('/sendText', function(request, response) {
-	body = utils.createMessage(utils.people[index], utils.people[(index + 2) % 5]);
+	body = utils.createMessage(utils.people[index], utils.people[(index + 2) % 4]);
 	response.send('sending texts');
 	twilioService.sendText(utils.numbers[4], body);
 
@@ -69,13 +69,13 @@ app.listen(app.get('port'), function() {
 
 	var text = schedule.scheduleJob(utils.rule, function(){
 		index += 1;
-		index = index % 5;
+		index = index % 4;
 
 		IndexData.update({}, {index: index}, function(err){
 			if (err) {console.log(err)}
 		});
 
-		body = utils.createMessage(utils.people[index], utils.people[(index + 2) % 5]);
+		body = utils.createMessage(utils.people[index], utils.people[(index + 2) % 4]);
 
 		utils.numbers.forEach(function (number){
 			twilioService.sendText(number, body);

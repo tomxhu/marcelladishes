@@ -5,14 +5,13 @@ module.exports = {
 
     numbers: [
 
-        '8572075659', // Vy
-        '8573139589',  // Anu
+        '9176534098', // Gasper
         '9492926781', // Mike
         '7819568182', // Tommy
         '4105751082', // Dan
     ],
 
-    people: ['Vy', 'Anu', 'Mike', 'Tommy', 'Dan'],
+    people: ['Gasper', 'Mike', 'Tommy', 'Dan'],
 
     rule: {
         hour: 9,
